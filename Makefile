@@ -1,7 +1,9 @@
 CC     = gcc
 CFLAGS = -Wall -Wextra -std=c11 -O2 -g
 
-OBJ_SHARED = posting.o avl/avl.o rbtree/rbtree.o btree/btree.o \
+VECTOR_OBJ = vector/generic.o
+
+OBJ_SHARED = $(VECTOR_OBJ) posting.o avl/avl.o rbtree/rbtree.o btree/btree.o \
              index/index.o index/search.o
 
 .PHONY: all app u_tests test clean
@@ -47,5 +49,5 @@ test: app
 
 clean:
 	rm -f app test_avl test_rb test_btree
-	rm -f *.o avl/*.o rbtree/*.o btree/*.o index/*.o
+	rm -f *.o avl/*.o rbtree/*.o btree/*.o index/*.o $(VECTOR_OBJ)
 	rm -f data/index_*.txt data/test/docs.jsonl data/test/idx_*.txt
