@@ -13,14 +13,14 @@ all: app u_tests
 app: $(OBJ_SHARED) main.o
 	$(CC) $(CFLAGS) -o app $(OBJ_SHARED) main.o
 
-test_avl: posting.o avl/avl.o avl/tests.o
-	$(CC) $(CFLAGS) -o test_avl posting.o avl/avl.o avl/tests.o
+test_avl: $(VECTOR_OBJ) posting.o avl/avl.o avl/tests.o
+	$(CC) $(CFLAGS) -o test_avl $(VECTOR_OBJ) posting.o avl/avl.o avl/tests.o
 
-test_rb: posting.o rbtree/rbtree.o rbtree/tests.o
-	$(CC) $(CFLAGS) -o test_rb posting.o rbtree/rbtree.o rbtree/tests.o
+test_rb: $(VECTOR_OBJ) posting.o rbtree/rbtree.o rbtree/tests.o
+	$(CC) $(CFLAGS) -o test_rb $(VECTOR_OBJ) posting.o rbtree/rbtree.o rbtree/tests.o
 
-test_btree: posting.o btree/btree.o btree/tests.o
-	$(CC) $(CFLAGS) -o test_btree posting.o btree/btree.o btree/tests.o
+test_btree: $(VECTOR_OBJ) posting.o btree/btree.o btree/tests.o
+	$(CC) $(CFLAGS) -o test_btree $(VECTOR_OBJ) posting.o btree/btree.o btree/tests.o
 
 u_tests: test_avl test_rb test_btree
 	./test_avl
