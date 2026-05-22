@@ -10,7 +10,9 @@
 
 Index* createIndex(TreeType type) {
     Index* idx = (Index*)malloc(sizeof(Index));
-    if (!idx) return NULL;
+    if (!idx) {
+        return NULL;
+    }
     idx->type = type;
     switch (type) {
         case TREE_AVL:
@@ -27,7 +29,9 @@ Index* createIndex(TreeType type) {
 }
 
 void insertTerm(Index* idx, const char* term, int doc_id, const char* title) {
-    if (!idx || !idx->tree) return;
+    if (!idx || !idx->tree) {
+        return;
+    }
     switch (idx->type) {
         case TREE_AVL:
             avlInsert((AVLTree*)idx->tree, term, doc_id, title);
@@ -42,7 +46,9 @@ void insertTerm(Index* idx, const char* term, int doc_id, const char* title) {
 }
 
 Vector* lookupTerm(const Index* idx, const char* term) {
-    if (!idx || !idx->tree) return NULL;
+    if (!idx || !idx->tree) {
+        return NULL;
+    }
     switch (idx->type) {
         case TREE_AVL:
             return avlSearch((const AVLTree*)idx->tree, term);
@@ -56,7 +62,9 @@ Vector* lookupTerm(const Index* idx, const char* term) {
 
 void indexDocument(Index* idx, int doc_id, const char* title,
                        const char** tokens, int n_tokens) {
-    if (!idx) return;
+    if (!idx) {
+        return;
+    }
     for (int i = 0; i < n_tokens; i++) {
         int is_duplicate = 0;
         for (int j = 0; j < i; j++) {
@@ -74,7 +82,9 @@ void indexDocument(Index* idx, int doc_id, const char* title,
 void traverseIndex(const Index* idx,
                    void (*visit)(const char* key, Vector* postings, void* ctx),
                    void* ctx) {
-    if (!idx || !idx->tree) return;
+    if (!idx || !idx->tree) {
+        return;
+    }
     switch (idx->type) {
         case TREE_AVL:
             avlTraverse((const AVLTree*)idx->tree, visit, ctx);
@@ -90,7 +100,9 @@ void traverseIndex(const Index* idx,
 
 static void save_callback(const char* key, Vector* postings, void* ctx) {
     FILE* f = (FILE*)ctx;
-    if (!f || !postings) return;
+    if (!f || !postings) {
+        return;
+    }
     fprintf(f, "@TERM:%s %zu\n", key, postings->size);
     for (size_t i = 0; i < postings->size; i++) {
         PostingEntry* pe = (PostingEntry*)getVectorItem(postings, i);
@@ -155,7 +167,9 @@ Index* loadIndex(const char* path, TreeType type) {
 }
 
 void freeIndex(Index* idx) {
-    if (!idx) return;
+    if (!idx) {
+        return;
+    }
     if (idx->tree) {
         switch (idx->type) {
             case TREE_AVL:
@@ -173,9 +187,15 @@ void freeIndex(Index* idx) {
 }
 
 TreeType parseType(const char* type_str) {
-    if (strcmp(type_str, "avl") == 0)   return TREE_AVL;
-    if (strcmp(type_str, "rb") == 0)    return TREE_RB;
-    if (strcmp(type_str, "btree") == 0) return TREE_BTREE;
+    if (strcmp(type_str, "avl") == 0)   {
+        return TREE_AVL;
+    }
+    if (strcmp(type_str, "rb") == 0)    {
+        return TREE_RB;
+    }
+    if (strcmp(type_str, "btree") == 0) {
+        return TREE_BTREE;
+    }
     return TREE_AVL;
 }
 
