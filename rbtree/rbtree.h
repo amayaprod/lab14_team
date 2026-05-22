@@ -30,4 +30,3 @@ void    rbTraverse(
     void (*visit)(const char* key, Vector* postings, void* ctx),
     void* ctx
 );
-

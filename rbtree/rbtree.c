@@ -1,4 +1,3 @@
-#include "../vector/generic.c"
 #include "rbtree.h"
 
 static char* StrDup(const char* s)
@@ -239,7 +238,9 @@ static void rbBalance(RBTree* tree, RBNode* z)
 void rbInsert(RBTree* tree, const char* key, int doc_id, const char* title)
 {
     if (tree == NULL || key == NULL)
-        return;
+        {
+            return;
+        }
 
     RBNode* node_to = tree->root;
     RBNode* parent = tree->nil;
@@ -271,7 +272,9 @@ void rbInsert(RBTree* tree, const char* key, int doc_id, const char* title)
 
     RBNode* node = malloc(sizeof(RBNode));
     if (node == NULL)
-        return;
+        {
+            return;
+        }
 
     node->key = StrDup(key);
     if (node->key == NULL)
