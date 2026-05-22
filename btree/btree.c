@@ -26,7 +26,9 @@ static BTreeNode* createNode(int is_leaf) {
 
 // рекурсивно удаляет узел и всех его детей
 static void freeNode(BTreeNode* node) {
-    if (!node) return;
+    if (!node) {
+        return;
+    }
 
     for (int i = 0; i < node->n; i++) {
         free(node->keys[i]);
@@ -55,7 +57,9 @@ BTree* createBTree(void) {
 }
 
 void freeBTree(BTree* tree) {
-    if (!tree) return;
+    if (!tree) {
+        return;
+    }
     freeNode(tree->root);
     free(tree);
 }
@@ -81,7 +85,9 @@ static Vector* searchNode(BTreeNode* node, const char* key) {
 }
 
 Vector* btreeSearch(const BTree* tree, const char* key) {
-    if (!tree || !tree->root) return NULL;
+    if (!tree || !tree->root) {
+        return NULL;
+    }
     return searchNode(tree->root, key);
 }
 
@@ -90,7 +96,9 @@ Vector* btreeSearch(const BTree* tree, const char* key) {
 static void traverseNode(BTreeNode* node, 
                          void (*visit)(const char* key, Vector* postings, void* ctx), 
                          void* ctx) {
-    if (!node) return;
+    if (!node) {
+        return;
+    }
 
     int i;
     for (i = 0; i < node->n; i++) {
@@ -109,7 +117,9 @@ static void traverseNode(BTreeNode* node,
 void btreeTraverse(const BTree* tree, 
                    void (*visit)(const char* key, Vector* postings, void* ctx), 
                    void* ctx) {
-    if (!tree || !tree->root) return;
+    if (!tree || !tree->root) {
+        return;
+    }
     traverseNode(tree->root, visit, ctx);
 }
 
@@ -206,8 +216,10 @@ static void insertNonFull(BTree* tree, BTreeNode* x, const char* key, int doc_id
 }
 
 void btreeInsert(BTree* tree, const char* key, int doc_id, const char* title) {
-    if (!tree || !tree->root) return;
-    
+    if (!tree || !tree->root) {
+        return;
+    }
+
     BTreeNode* root = tree->root;
     // граничный случай 3 - корень переполнен
     if (root->n == BTREE_MAX_KEYS) {
