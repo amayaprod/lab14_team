@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -std=c11 -O2 -g
 VECTOR_OBJ = vector/generic.o
 
 OBJ_SHARED = $(VECTOR_OBJ) posting.o avl/avl.o rbtree/rbtree.o btree/btree.o \
-             index/index.o index/search.o
+             index/index.o index/search.o index/benchmark.o
 
 .PHONY: all app u_tests test clean
 
