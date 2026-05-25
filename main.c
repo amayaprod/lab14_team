@@ -4,6 +4,7 @@
 #include <time.h>
 #include "index/index.h"
 #include "index/search.h"
+#include "index/benchmark.h"
 
 
 static int parse_json_line(const char* line, int* doc_id, char* title, size_t max_title, char*** tokens, int* n_tokens) {
@@ -140,7 +141,7 @@ static void usage(const char* prog) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 3) { usage(argv[0]); return 1; }
+    if (argc < 2) { usage(argv[0]); return 1; }
 
     const char* mode = argv[1];
     TreeType    type = TREE_AVL;
@@ -166,6 +167,8 @@ int main(int argc, char* argv[]) {
     } else if (strcmp(mode, "search") == 0) {
         if (!query) { fprintf(stderr, "No query provided(Не задана строка поискового запроса)\n"); return 1; }
         runSearch(type, idx_path, query, json_out);
+    } else if (strcmp(mode, "bench") == 0) {
+        run_all_experiments(data_path);
     } else {
         fprintf(stderr, "Unknown mode: %s\n", mode);
         usage(argv[0]);
