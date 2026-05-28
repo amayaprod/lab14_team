@@ -1,0 +1,21 @@
+ # Бинарники
+  app
+  test_avl
+  test_rb
+  test_btree
+
+  # Объектные файлы
+  *.o
+
+  # Данные
+  data/Questions.csv
+  data/Answers.csv
+  data/Tags.csv
+  data/processed/
+  data/test/
+  data/index_*.txt
+
+  # Python
+  __pycache__/
+  *.pyc
+  .venv/
